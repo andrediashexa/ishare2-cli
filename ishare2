@@ -626,7 +626,7 @@ remove_ishare_sources() {
 install_dependencies() {
     remove_ishare_sources
     echo -e "${YELLOW}[+] ishare2 needs to install some dependencies to work properly.${NO_COLOR}"
-    local packages=("curl" "wget" "jq" "unrar" "tree" "unzip")
+    local packages=("curl" "wget" "jq" "unrar-free" "tree" "unzip")
     echo -e "${YELLOW}[+] List of packages to be installed: ${NO_COLOR}"
     for package in "${packages[@]}"; do
         echo -e "${YELLOW} -${NO_COLOR} $package"
@@ -2145,12 +2145,12 @@ handle_rar_files() {
     if ls "${DIR}"/*"$EXTENSION" &>/dev/null; then
         file=$(ls "${DIR}"/*"$EXTENSION")
 
-        if ! [[ -e /usr/bin/unrar ]]; then
-            apt -qq update >/dev/null 2>&1 && apt -qq install --assume-yes unrar >/dev/null 2>&1
+        if ! [[ -e /usr/bin/unrar-free ]]; then
+            apt -qq update >/dev/null 2>&1 && apt -qq install --assume-yes unrar-free >/dev/null 2>&1
         fi
 
         echo -e "${YELLOW}[-] Extracting: $FOLDERNAME$EXTENSION file... ${NO_COLOR}"
-        unrar e "$file" "$DIR" >/dev/null 2>&1
+        unrar-free e "$file" "$DIR" >/dev/null 2>&1
         echo -e "${GREEN}[+] Extracted: $DIR. Image ready to use. ${NO_COLOR}"
         rm "$file"
     fi
